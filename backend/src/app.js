@@ -13,5 +13,6 @@ app.use(express.json())
 
 //Routes
 app.use("/api/signup", require('./routes/signup'))
+app.use("/api/login", require('./routes/login'))
 
 module.exports = app;

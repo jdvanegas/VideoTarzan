@@ -1,5 +1,6 @@
 const signupCtrl = {}
 const User = require('../models/users')
+const jwt = require('jsonwebtoken')
 
 signupCtrl.getUsers = async (req, res) => {
   const users = await User.find();
@@ -9,6 +10,7 @@ signupCtrl.getUsers = async (req, res) => {
 signupCtrl.createUser = async (req, res) => {
   const { username, email, password } = req.body;
   const user = await User.findOne({ email: email })
+  
   if(!username || !email || !password){
     return res.status(401).send("please fill out the fields")
   }
@@ -22,10 +24,12 @@ signupCtrl.createUser = async (req, res) => {
     email,
     password
   })
-  newUser.password = await newUser.encryptPassword(password)
+  newUser.password = await newUser.encryptPassword(password) 
 
   await newUser.save();
-  res.status(200).send("user created")
+
+  const token = jwt.sign({_id: newUser._id}, process.env.SECRET || "secret")
+  res.status(200).json({token})
 }
 
 module.exports = signupCtrl;
