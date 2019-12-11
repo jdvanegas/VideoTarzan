@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express();
-const mongoose = require('./database')
 
 const cors = require('cors')
 
@@ -13,5 +12,6 @@ app.use(cors())
 app.use(express.json())
 
 //Routes
+app.use("/api/signup", require('./routes/signup'))
 
 module.exports = app;

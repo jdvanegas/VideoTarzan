@@ -16,4 +16,4 @@ const reservationSchema = new Schema({
   timestamps: true
 })
 
-module.exports = model("reservation", reservationSchema);
+module.exports = model("Reservation", reservationSchema);
