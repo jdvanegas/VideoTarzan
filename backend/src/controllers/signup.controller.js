@@ -29,7 +29,7 @@ signupCtrl.createUser = async (req, res) => {
   await newUser.save();
 
   const token = jwt.sign({_id: newUser._id}, process.env.SECRET || "secret")
-  res.status(200).json({token})
+  res.status(201).json({ token, user: {username: user.username, email: user.email, admin: user.admin} })
 }
 
 module.exports = signupCtrl;

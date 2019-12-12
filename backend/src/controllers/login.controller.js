@@ -19,7 +19,7 @@ loginCtrl.loginUser = async (req, res) => {
       }
       else {
         const token = jwt.sign({ _id: user._id }, process.env.SECRET || "secret")
-        res.status(200).json({ token })
+        res.status(200).json({ token, user: {username: user.username, email: user.email, admin: user.admin} })
       }
 
     }
